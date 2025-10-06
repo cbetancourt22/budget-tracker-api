@@ -2,10 +2,15 @@ VENV_NAME := venv
 PYTHON := python
 PIP := $(VENV_NAME)/bin/pip
 PYTHON_UVICORN := $(VENV_NAME)/bin/python
+PYTHON_BLACK := $(VENV_NAME)/bin/python
 
 ifeq ($(OS),Windows_NT)
     PIP := $(VENV_NAME)/Scripts/pip.exe
     PYTHON_UVICORN := $(VENV_NAME)/Scripts/python.exe
+endif
+
+ifeq ($(OS),Windows_NT)
+    PYTHON_BLACK := $(VENV_NAME)/Scripts/python.exe
 endif
 
 HOST := 127.0.0.1
@@ -15,6 +20,10 @@ SWAGGER_URL := http://$(HOST):$(PORT)/docs
 .PHONY: all install run clean
 
 all: run
+
+format:
+	@echo "Formatting Python files with Black..."
+	$(PYTHON_BLACK) -m black app
 
 install:
 	@if [ ! -d "$(VENV_NAME)" ]; then \
