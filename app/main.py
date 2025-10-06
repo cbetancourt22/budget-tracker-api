@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.controller import budget_controller
 from app.database import Base, engine
+from app.models import Category, Purchase  # your models
 
 # Create database tables
 Base.metadata.create_all(bind=engine)

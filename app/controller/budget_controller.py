@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app import schemas, models
+from app.schemas import CategoryCreate, CategoryRead, PurchaseRead, PurchaseCreate
 from app.database import SessionLocal
 from app.service.budget_service import BudgetService
 from datetime import date
@@ -18,20 +18,20 @@ def get_db():
         db.close()
 
 
-@router.post("/categories/", response_model=schemas.CategoryRead)
-def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
+@router.post("/categories/", response_model=CategoryRead)
+def create_category(category: CategoryCreate, db: Session = Depends(get_db)):
     service = BudgetService(db)
     return service.repo.create_category(category)
 
 
-@router.get("/categories/", response_model=List[schemas.CategoryRead])
+@router.get("/categories/", response_model=List[CategoryRead])
 def list_categories(db: Session = Depends(get_db)):
     service = BudgetService(db)
     return service.repo.get_categories()
 
 
-@router.post("/purchases/", response_model=schemas.PurchaseRead)
-def create_purchase(purchase: schemas.PurchaseCreate, db: Session = Depends(get_db)):
+@router.post("/purchases/", response_model=PurchaseRead)
+def create_purchase(purchase: PurchaseCreate, db: Session = Depends(get_db)):
     service = BudgetService(db)
     return service.repo.create_purchase(purchase)
 

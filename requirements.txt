@@ -5,4 +5,4 @@ pydantic
 databases  # optional, for async DB
 python-multipart  # optional if you want file uploads
 black
-
+psycopg2-binary
