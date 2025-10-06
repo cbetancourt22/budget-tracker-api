@@ -1,9 +1,13 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-# SQLite database file
-DATABASE_URL = "postgresql://postgres:Mamadelaverga12.@db.njrciymefmukqjhtmaia.supabase.co:5432/postgres"
+# Load variables from .env
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL, echo=True)
 
